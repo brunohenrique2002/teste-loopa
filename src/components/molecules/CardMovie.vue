@@ -1,11 +1,11 @@
 <template>
-<div>
+<div @click="clicked()">
     <div class="card-movie">
         <div class="card-movie-cover" :style="style">
         </div>
         <div class="card-movie-content">
         <div class="card-movie-title">{{title}}</div>
-        <div class="card-movie-text"> {{text}} </div>
+        <div class="card-movie-text"> {{ $date(text).format('DD/MM/YYYY') }} </div>
         </div>
     </div>
 </div>
@@ -28,7 +28,6 @@ export default {
   },
   computed: {
     style() {
-        console.log(this.photo)
         if(this.photo === null) { return 'background-image: url(https://www2.camara.leg.br/atividade-legislativa/comissoes/comissoes-permanentes/cindra/imagens/sem.jpg.gif/image)'}
         return `background-image: url(https://image.tmdb.org/t/p/w500${this.photo})`;
     }
@@ -39,7 +38,9 @@ export default {
     }
   },
   methods: {
-      
+      clicked() {
+        this.$emit('clicked');
+      }
   }
 }
 </script>

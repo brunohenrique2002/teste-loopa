@@ -46,8 +46,8 @@ function getMethod(type, url, params = {}, headers = {}) {
 
 
 export default {
-    getMovie(params) {
-        return getMethod("get", "movie/550");
+    getMovie(id) {
+        return getMethod("get", `movie/${id}`);
     },
     
     getMovies(params) {

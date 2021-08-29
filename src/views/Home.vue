@@ -4,21 +4,25 @@
     <div class="container">
       <div class="aside">
 
-        <card-aside title="Pesquisar" text="Pesquisar resultados por" @changeValue="updateSearch" />
+        <card-aside title="Pesquisar" text="Pesquisar resultados por" @submitForm="clickButton()" @changeValue="updateSearch" />
 
         <default-button @clicked="clickButton()" />
       </div>
 
       <div class="content">
-        <div class="text-default" v-if="movies.length < 1">Nenhum resultado encontrado no momento, ultilize a busca para filtrar seus resultados</div>
+        <div class="text-default" v-if="isLoading">Aguarde, carregando informações...</div>
         <div v-else>
-          <card-movie v-for="movie in movies" 
-            :key="movie.id" 
-            class="card-movie"
-            :title="movie.title"
-            :text="movie.release_date"
-            :photo="movie.poster_path" 
-          />
+          <div class="text-default" v-if="movies.length < 1">Ultilize a busca para encontrar seus filmes</div>
+          <div v-else>
+            <card-movie v-for="movie in movies"
+              @clicked="goToDetail(movie.id)"
+              :key="movie.id" 
+              class="card-movie"
+              :title="movie.title"
+              :text="movie.release_date"
+              :photo="movie.poster_path" 
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -38,6 +42,20 @@ export default {
     return {
       search: '',
       movies: [],
+      isLoading: false,
+    }
+  },
+  mounted() {
+    const urlSearch = this.$route.params.search;
+    if(urlSearch && urlSearch !== '') {
+      this.search = urlSearch;
+      this.searchMovies();
+      return;
+    }
+
+    if(this.search === '') {
+      this.search = 'a';
+      this.searchMovies();
     }
   },
   methods: {
@@ -45,8 +63,10 @@ export default {
       const params = {
         query: this.search
       }
-      const response = await this.$api.getMovies(params)
+      this.isLoading = true;
+      const response = await this.$api.getMovies(params);
       this.movies = response.data.results;
+      this.isLoading = false;
     },
     updateSearch(value) {
       this.search = value
@@ -57,17 +77,24 @@ export default {
         return;
       }
 
+      this.$router.push('/' + this.search);
+
       this.searchMovies();
     },
-    goToDetail() {
-      this.$router.push({ name: "detail" });
+    goToDetail(id) {
+      
+      this.$router.push('/detalhe/' + id);
     }
+
   }
 
 }
 </script>
 
 <style scoped>
+.home {
+  margin: 10px;
+}
 .title {
 
   font-size: 20px;

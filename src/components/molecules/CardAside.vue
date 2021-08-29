@@ -1,11 +1,11 @@
 <template>
-<div>
+<form @submit="submitForm">
     <div class="card-aside">
         <div class="card-aside-title">{{title}}</div>
         <div class="card-aside-text">{{text}}</div>
         <input class="card-aside-input" type="text" v-model="search">
     </div>
-</div>
+</form>
 </template>
 
 
@@ -31,7 +31,10 @@ export default {
       }
   },
   methods: {
-      
+      submitForm(e) {
+        e.preventDefault();
+        this.$emit('submitForm');
+      }
   }
 }
 </script>

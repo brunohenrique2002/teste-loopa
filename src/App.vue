@@ -28,6 +28,8 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
 }
 body {
+  padding: 0;
+  margin: 0;
   background-color: rgb(244, 244, 244);
 }
 </style>

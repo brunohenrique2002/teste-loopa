@@ -14,7 +14,12 @@ const router = new Router({
         component: Home,
       },
       {
-        path: "/detalhe",
+        path: "/:search",
+        name: "homeSearch",
+        component: Home,
+      },
+      {
+        path: "/detalhe/:id",
         name: "detail",
         component: Detail,
       },

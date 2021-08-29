@@ -4,6 +4,9 @@ import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import plugins from "./plugins";
+import VueDayjs from 'vue-dayjs-plugin'
+
+Vue.use(VueDayjs)
 
 Vue.config.productionTip = false
 
