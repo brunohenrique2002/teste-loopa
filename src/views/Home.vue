@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="title">Filmes em Cartaz</div>
+    <div class="title">Teste</div>
     <div class="container">
       <div class="aside">
 
